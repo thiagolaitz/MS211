@@ -2,22 +2,26 @@
 clear all
 clc
 
-A = [2 3 4;1 7 2; 1 2 4]
-b = [28;36;20]
-%resposta = [2;4;3]
-x_zero = zeros(3,1);%Matriz coluna com os valores iniciais
-k_max = 5;%número máximo de interações
-tolerancia = 0.001;
-dr = tolerancia + 1;
-[L, U] = lu(A);%Fatoração LU da matriz A
-k = 0;%variavel para contagem das interações
+A = [2 3 4;1 7 2; 1 2 4];
+b = [28;36;20];
+%resposta = [4;4;2]
+[n,n] = size(A);
+L = tril(A); %
+U = eye(n);
+iter = 0;
+x0 = zeros(3,1);
+r = b - A * x0;
+r0 = norm(r);
+erro = norm (r);
+x = x0
 
-while k <= k_max
-  k = k + 1;
-  x = L\(b - U*x_zero)
-  aux = x - x_zero;
-  dr = (norm(aux,inf))/(norm(x,inf));
-  x_zero = x;
+while erro > 0.000001 & iter < 1000
+  iter = iter + 1;
+  z = L\r;
+  z = U\z;
+  x = x + z;
+  r = b - A*x;
+  erro = norm (r) / r0;
 endwhile
 
-x_zero
+x
