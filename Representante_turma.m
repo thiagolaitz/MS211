@@ -79,6 +79,7 @@ numero = 0;
 aux2 = 0;
 numero2 = 0;
 
+%Encontrando os RAs com maior representação:
 for i = 1:98
   if aux <= x(i,1)
     aux = x(i,1);
@@ -95,7 +96,79 @@ for i = 1:98
   endif
 endfor
 
-numero
+disp("\n\nItem A)\n")
+disp("Representante da turma:") 
 RA{numero}
-numero2
+disp("Vice representante da turma:")
+RA{numero2}
+
+
+disp("\n\nItem B)\n")
+
+%Ajustando o valor de Vi:
+%Thiago Soares Laitz - 224898 - RA{64}
+%Henrique Weber Soeiro - 236655 - RA{63}
+
+v = zeros(98,1);
+
+for i = 1:98
+  if i == 64
+    v(i,1) = 30/156;
+    b(i,1) = (1-alfa)*v(i,1);
+  elseif i == 63
+    v(i,1) = 30/156;
+    b(i,1) = (1-alfa)*v(i,1);
+  else    
+    v(i,1) = 1/156; %156 = 96*1 + 30*2 = peso total
+    b(i,1) = (1-alfa)*v(i,1);
+  endif
+endfor
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%resolvendo o novo sistema linear dx = b:
+
+[n,n] = size(d); %n = tamanho da matriz D nxn
+L = tril(d); % L = matriz triangular inferior de A
+U = eye(n); %
+iter = 0;
+x0 = zeros(98,1);
+r = b - d * x0;
+r0 = norm(r);
+erro = norm (r);
+x = x0;
+
+while erro > 0.0001 && iter < 50
+  iter = iter + 1;
+  z = L\r;
+  z = U\z;
+  x = x + z;
+  r = b - d*x;
+  erro = norm (r) / r0;
+endwhile
+
+aux = 0;
+numero = 0;
+aux2 = 0;
+numero2 = 0;
+
+%Encontrando os RAs com maior representação:
+for i = 1:98
+  if aux <= x(i,1)
+    aux = x(i,1);
+    numero = i;
+  endif
+endfor
+
+for i = 1:98
+  if i != numero
+    if aux2 < x(i,1)
+      aux2 = x(i,1);
+      numero2 = i;
+    endif
+  endif
+endfor
+
+disp("Representante da turma:") 
+RA{numero}
+disp("Vice representante da turma:")
 RA{numero2}
