@@ -172,3 +172,23 @@ disp("Representante da turma:")
 RA{numero}
 disp("Vice representante da turma:")
 RA{numero2}
+
+%Analisando a qualidade da solução 
+
+%--> Cáculo do Residuo Absuluto
+
+K = b-d*x;
+
+Ra = norm(K)
+
+%--> Calculo do Residuo Realtivo
+
+w=norm(b);
+
+Rr= Ra/w
+
+%--> Condicionamneto do sistema 
+
+condici = cond(d);
+
+condici
