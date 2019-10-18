@@ -1,7 +1,8 @@
 #Zeros reais de uma função, utilizando o método da secante
+clc
 
-x0 = 6.5; #aproximação inicial para X0 / x(k-1)
-x1 = 6.4; #aproximação inicial para X1 / x(k)
+x0 = 7; #aproximação inicial para X0 / x(k-1)
+x1 = 6; #aproximação inicial para X1 / x(k)
 erro = 0.00001; #Critério de condição de parada
 
 yk = ((((30*x1)/((x1^2+64))^0.5)^4)+(-400-2*x1+(x1^2)+64)*(((30*x1)/((x1^2+64)^0.5))^2)+800*x1-(400*x1^2)); #calcula a funcao em x(k)
@@ -16,8 +17,7 @@ x_ant = x0;
 
 fplot("((((30*x)/((x^2+64))^0.5)^4)+(-400-2*x+(x^2)+64)*(((30*x)/((x^2+64)^0.5))^2)+800*x-(400*x^2))", [0, 20])
 
-
-while ((x_novo - x_atual) > erro)
+do
   
   yk = ((((30*x_atual)/((x_atual^2+64))^0.5)^4)+(-400-2*x_atual+(x_atual^2)+64)*(((30*x_atual)/((x_atual^2+64)^0.5))^2)+800*x_atual-(400*x_atual^2)); #calcula a funcao em x(k)
   yk1 = ((((30*x_ant)/((x_ant^2+64))^0.5)^4)+(-400-2*x_ant+(x_ant^2)+64)*(((30*x_ant)/((x_ant^2+64)^0.5))^2)+800*x_ant-(400*x_ant^2)); #calcula a função em x(k-1)
@@ -29,6 +29,8 @@ while ((x_novo - x_atual) > erro)
   
   k = k + 1;
   
-endwhile
+until (abs((x_atual - x_ant)) < erro)
 
 x_atual
+k
+l = (30*x_atual)/((x_atual^2 + 64)^0.5)
