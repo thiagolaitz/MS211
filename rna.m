@@ -44,7 +44,15 @@ endfor
 %Resolvendo o sistema linear B*alfa = D
 coeficientes = B\D;
 
-%Encontrando a rede neural a partir do arquivo RNA:
+%Testando o modelo encontrado:
+load DadosTeste.mat
+
+%Estudando a rede Neural com os dados de treinamento:
 for k = 1:m
- 
-%Resultado s = αT G
+  phi(1,k) = RNA(coeficientes,W,b,Xtr(:,k));
+endfor
+
+%Calculando o número de acertos
+L = 2;%Limiar da função
+
+
