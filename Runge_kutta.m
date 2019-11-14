@@ -8,7 +8,7 @@ dif2 = 4;
 dif3 = 8;
 dif4 = 5;
 a = 1;
-v_max = 50;#velocidade max permitida
+v_max = (50/3.6);#velocidade max permitida
 s = 42;#Distância de segurança
 iter = 0;#Calcula o número e iterações
 
@@ -228,14 +228,28 @@ while p04 < 1700
     v_max4 = z04;
   endif
 
+  
+ #Armazenado as distancia percorridas por cada carro em vetores
+
+G1(iter+1)= p01+14;
+G2(iter+1)= p02+18;
+G3(iter+1)= p03+26;
+G4(iter+1)= p04+31;
+
+#Armazenado as vlocidades instantaneas por cada carro em vetores
+
+H1(iter+1)= z01;
+H2(iter+1)= z02;
+H3(iter+1)= z03;
+H4(iter+1)= z04;
 endwhile
 
 disp("\nTempo decorrido = ")
 iter * h
 
 batida
-tempo
-aux
+#tempo
+#aux
 
 disp("\n");
 v_max1
@@ -245,7 +259,33 @@ v_max4
 
 #Calculando as velocidades médias:
 disp("\n");
-v_m1 = (p01 + 14) / (iter*h)
-v_m2 = (p02 + 18) / (iter*h)
-v_m3 = (p03 + 26) / (iter*h)
-v_m4 = (p04 + 31) / (iter*h)
+v_m1 = ((p01 + 14) / (iter*h))*3.6
+v_m2 = ((p02 + 18) / (iter*h))*3.6
+v_m3 = ((p03 + 26) / (iter*h))*3.6
+v_m4 = ((p04 + 31) / (iter*h))*3.6
+
+#Gráfico tempo X distancia percorrida 
+
+t=0:0.1:237.3;
+G1;
+G2;
+G3;
+G4;
+plot(t,G1,t,G2,t,G3,t,G4)
+title("Gráfico - Tempo X Distância percorrida ")
+xlabel("Tempo(s)")
+ylabel("Distância(m)")
+figure
+hold on
+#Gráfico tempo X velocidades instantaneas
+
+H1;
+H2;
+H3;
+H4;
+plot(t,H1,t,H2,t,H3,t,H4)
+title("Gráfico - Tempo X Velocidade Instantânea")
+xlabel("Tempo(s)")
+ylabel("Velocidade isntantanea (m/s)")
+
+
